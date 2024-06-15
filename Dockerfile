@@ -1,15 +1,15 @@
-FROM python:3.10-rc-slim-buster
+FROM python:3.10-slim
 
 WORKDIR /app
 
-# Copia los archivos de la app.
-COPY . .
+# Install Python dependencies
+RUN pip3 install flask
 
-RUN apt-get update && apt-get install -y \
-    python3-pip
+# Copy the rest of the application code
+COPY . /app
 
-RUN pip3 install -r /app/requirements.txt
-
+# Expose the port the app runs on
 EXPOSE 5000
 
-CMD ["python", "/app/app.py"]
+# Command to run the application
+CMD ["python3", "app.py"]
